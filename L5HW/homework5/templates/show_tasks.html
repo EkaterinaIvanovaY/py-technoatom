@@ -5,14 +5,25 @@
     <title>Show tasks</title>
 </head>
 <body>
+
+    <h1> Here is list of Tasks </h1>
+
     {% if task_list %}
+
     <ul>
         {% for task in task_list %}
-        <li>{{ task }}</li>
+            <li> {{ task.estimate }} {{ task.title }} </li>
         {% endfor %}
     </ul>
-{% else %}
-    <p>No books matched your search criteria.</p>
-{% endif %}
+
+    {% else %}
+
+        <p>No tasks is presented here.<br /> Add new task</p>
+        <form action="/task/" method = "get">
+            <input type="submit" value="New task">
+        </form>
+
+    {% endif %}
+
 </body>
 </html>

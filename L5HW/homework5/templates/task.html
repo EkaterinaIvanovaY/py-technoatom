@@ -7,8 +7,12 @@
 
         <h1> Here is new task page. <br /> Type title and estimate </h1>
 
-        {% if error %}
-            <p style="color: red;">Please submit a search term.</p>
+        {% if error_title %}
+            <p style="color: red;">Please submit correct title.</p>
+        {% endif %}
+
+        {% if error_estimate %}
+            <p style="color: red;">Please submit correct estimate format XXXX-XX-XX.</p>
         {% endif %}
 
         <form action="" method="get">
