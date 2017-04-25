@@ -1,3 +1,7 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'hw5/style.css' %}" />
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +16,17 @@
 
     <ul>
         {% for task in task_list %}
-            <li> {{ task.estimate }} {{ task.title }} </li>
+
+            <li>
+                {% if task.days < 3  %}
+                    <p style="color: red;">{{ task.estimate }} {{ task.title }}</p>
+                {% else %}
+                {{ task.estimate }} {{ task.title }}
+                {% endif %}
+                <form action="/edit_task/" method = "get">
+                     <input type="submit" value="Edit">
+                </form>
+            </li>
         {% endfor %}
     </ul>
 

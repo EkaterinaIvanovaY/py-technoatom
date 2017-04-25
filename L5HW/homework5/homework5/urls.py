@@ -7,5 +7,5 @@ urlpatterns = [
     url(r'^$', views.HomePageView.as_view()),
     url(r'^task/', views.createTask),
     url(r'^show/', views.showTask),
-
+    url(r'^edit_task/', views.editTask),
 ]

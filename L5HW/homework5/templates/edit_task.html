@@ -5,14 +5,16 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title> New task </title>
+        <title> Edit task </title>
     </head>
     <body>
-
-        <h1> Here is new task page. <br /> Type title and estimate </h1>
-
+    <h1> Here is edit task page. <br /> Edit title and estimate </h1>
         {% if error_title %}
             <p style="color: red;">Please submit correct title.</p>
+        {% endif %}
+
+         {% if error_state %}
+            <p style="color: red;">Please chose one of two states: in_progress or ready.</p>
         {% endif %}
 
         {% if error_estimate %}
@@ -20,8 +22,9 @@
         {% endif %}
 
         <form action="" method="get">
-            <input type="text" placeholder="title" name="title" > <br/><br/>
-            <input type="text" placeholder="estimate"name="estimate"><br/><br/>
+            <input type="text" placeholder="title" name="title" value=title0 > <br/><br/>
+            <input type="text" placeholder="estimate" name="estimate" value=estimate0 ><br/><br/>
+            <input type="state" name="state" value=task.state ><br/><br/>
             <input type="submit" value="Save"><br/>
         </form>
 
