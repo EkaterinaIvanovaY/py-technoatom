@@ -7,21 +7,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Show tasks</title>
+     <style>
+   .colortext {
+     color: red;
+   }
+     </style>
 </head>
 <body>
-
     <h1> Here is list of Tasks </h1>
-
     {% if task_list %}
-
     <ul>
         {% for task in task_list %}
-
             <li>
-                {% if task.days < 3  %}
-                    <p style="color: red;">{{ task.estimate }} {{ task.title }}</p>
+                {% if task.iscritical %}
+                    <p style="color: red;">Title: {{ task.title }}<br />Estimate: {{ task.estimate }}<br />State: {{ task.state }}</p>
                 {% else %}
-                {{ task.estimate }} {{ task.title }}
+                    <p>Title: {{ task.title }}<br />Estimate: {{ task.estimate }}<br />State: {{ task.state }}</p>
                 {% endif %}
                 <form action="/edit_task/" method = "get">
                      <input type="submit" value="Edit">
@@ -29,15 +30,11 @@
             </li>
         {% endfor %}
     </ul>
-
     {% else %}
-
         <p>No tasks is presented here.<br /> Add new task</p>
         <form action="/task/" method = "get">
             <input type="submit" value="New task">
         </form>
-
     {% endif %}
-
 </body>
 </html>

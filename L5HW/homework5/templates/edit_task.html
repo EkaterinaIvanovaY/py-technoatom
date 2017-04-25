@@ -22,9 +22,9 @@
         {% endif %}
 
         <form action="" method="get">
-            <input type="text" placeholder="title" name="title" value=title0 > <br/><br/>
-            <input type="text" placeholder="estimate" name="estimate" value=estimate0 ><br/><br/>
-            <input type="state" name="state" value=task.state ><br/><br/>
+            <input type="text" placeholder="title" name="title" value={{task.title}} > <br/><br/>
+            <input type="text" placeholder="estimate" name="estimate" value={{ task.title }} ><br/><br/>
+            <input type="state" name="state" value = "in_progress"><br/><br/>
             <input type="submit" value="Save"><br/>
         </form>
 
