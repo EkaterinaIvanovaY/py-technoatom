@@ -1,0 +1,39 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'hw5/style.css' %}" />
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Show tasks</title>
+</head>
+<body>
+    <h1> Here is list of Tasks </h1>
+
+    {% if task_list %}
+    <ul>
+        {% for task in task_list %}
+            <li>
+                {% if task.iscritical %}
+                    <p style="color: red;">Title: {{ task.title }}<br />Estimate: {{ task.estimate }}<br />State: {{ task.state }}</p>
+                {% else %}
+                    <p>Title: {{ task.title }}<br />Estimate: {{ task.estimate }}<br />State: {{ task.state }}</p>
+                {% endif %}
+                <a href="{% url "task_edit" task.id %}"><input type="button" value="Edit" /></a>
+
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        <p>No tasks is presented here.<br /> Add new task</p>
+        <form action="/task/" method = "get">
+            <input type="submit" value="New task">
+        </form>
+    {% endif %}
+<form action="/" method = "get">
+            <input align="bottom" type="submit"  value="Go back home">
+</form>
+</body>
+</html>
