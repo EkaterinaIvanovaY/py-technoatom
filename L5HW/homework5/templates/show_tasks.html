@@ -7,14 +7,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Show tasks</title>
-     <style>
-   .colortext {
-     color: red;
-   }
-     </style>
 </head>
 <body>
     <h1> Here is list of Tasks </h1>
+
     {% if task_list %}
     <ul>
         {% for task in task_list %}
@@ -24,8 +20,8 @@
                 {% else %}
                     <p>Title: {{ task.title }}<br />Estimate: {{ task.estimate }}<br />State: {{ task.state }}</p>
                 {% endif %}
-                <form action="/edit_task/" method = "get">
-                     <input type="submit" value="Edit">
+                <a href="{% url "task_edit" task.id %}"><input type="button" value="Edit" /></a>
+
                 </form>
             </li>
         {% endfor %}
@@ -36,5 +32,8 @@
             <input type="submit" value="New task">
         </form>
     {% endif %}
+<form action="/" method = "get">
+            <input align="bottom" type="submit"  value="Go back home">
+</form>
 </body>
 </html>

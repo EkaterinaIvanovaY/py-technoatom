@@ -1,11 +1,11 @@
 import datetime
 from django.db import models
-
+from django.core.urlresolvers import reverse
 
 class Task(models.Model):
     title = models.CharField(max_length=30)
-    estimate = models.DateField()
-    state = models.CharField(default='in_progress',max_length=100)
+    estimate = models.DateField(error_messages={'required': 'Please submit correct estimate format XXXX-XX-XX'})
+    state = models.CharField(default='in_progress',max_length=100,error_messages={'required': 'Please chose one of two states: in_progress or ready.'})
 
     iscritical = property()
     @iscritical.getter
@@ -17,4 +17,7 @@ class Task(models.Model):
             return True
         else:
             return False
+
+    def get_absolute_url(self):
+        return reverse('task_edit', kwargs={'pk': self.pk})
 

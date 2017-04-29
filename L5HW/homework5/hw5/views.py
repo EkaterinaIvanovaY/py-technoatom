@@ -1,8 +1,11 @@
 import datetime
-from django.shortcuts import render, render_to_response
-from django.views.generic import TemplateView
-from django.utils import timezone
+from django.shortcuts import *
+from django.template import RequestContext
+from django.views.generic import *
+from hw5 import forms
+from hw5.forms import TaskEditForm
 from hw5.models import Task
+
 
 
 class HomePageView(TemplateView):
@@ -39,36 +42,21 @@ def createTask(request):
     return render_to_response('task.html',
                               {'error_title': error_title, 'error_estimate': error_estimate })
 
-def editTask(request,Task.id):
 
-    error_title = False
-    error_estimate = False
+def edit(request, pk):
     error_state = False
 
-    if 'title' in request.GET and 'estimate' in request.GET and 'state' in request.GET:
+    task = get_object_or_404(Task, pk=pk)
+    form = TaskEditForm(request.POST or None, instance=task)
+    if form.is_valid():
+        if (task.state != "ready") and (task.state != "in_progress"):
+            error_state=True
+        else:
+           form.save()
+           return redirect('/show/')
+    return render(request,'edit.html',{'form':form , 'error_state': error_state})
 
-        title = request.GET['title']
-        estimate = request.GET['estimate']
-        state = request.GET['state']
 
-        if not title:
-            error_title = True
-        try:
-            _estimate = datetime.datetime.strptime(estimate, "%Y-%m-%d")
-        except:
-            error_estimate = True
-        if (state != "ready") and (state != "in_progress"):
-            error_state = True
-        if not (error_title or error_estimate or error_state):
-            new_task = Task.objects.get(id=id)
-            new_task.title = title
-            new_task.estimate = _estimate
-            new_task.state = state
-            new_task.save()
-            return render_to_response('show_task.html')
-    return render_to_response('edit_task.html',
-                              {'error_title': error_title, 'error_estimate': error_estimate,'error_state': error_state,
-                              'new_task': new_task})
 
 def showTask(request):
     task_list = Task.objects.all()
