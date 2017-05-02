@@ -1,64 +1,71 @@
-import datetime
+from datetime import datetime
+
 from django.shortcuts import *
-from django.template import RequestContext
-from django.views.generic import *
-from hw5 import forms
-from hw5.forms import TaskEditForm
+from hw5.forms import *
 from hw5.models import Task
 
 
-
-class HomePageView(TemplateView):
-    def get(self, request, **kwargs):
-        return render(request, 'index.html', context=None)
-
-
-def task_form(request):
-    return render_to_response('task.html')
+def HomePage(request):
+    return render(request, 'index.html')
 
 
 def createTask(request):
-    error_title = False
-    error_estimate = False
-
-    if 'title' in request.GET and 'estimate' in request.GET:
-
-        title = request.GET['title']
-        estimate = request.GET['estimate']
-
-        if not title:
+    title = request.POST.get('title')
+    estimate = request.POST.get('estimate')
+    if estimate is not None:
+        error_title = False
+        if title is None:
             error_title = True
-
         try:
-            _estimate = datetime.datetime.strptime(estimate, "%Y-%m-%d")
+            datetime.strptime(estimate, "%Y-%m-%d")
+            form = TaskCreateForm(request.POST)
+            form.save()
+            return redirect('/show/')
         except:
             error_estimate = True
+            form = TaskCreateForm(None)
+            return render(request, 'task.html',
+                          {'form': form, 'error_title': error_title, 'error_estimate': error_estimate})
 
-        if not (error_title or error_estimate):
+    form = TaskCreateForm(None)
+    return render(request, 'task.html', {'form': form } )
 
-            Task.objects.create(title=title, estimate=_estimate)
-            return render_to_response('task.html')
-
-    return render_to_response('task.html',
-                              {'error_title': error_title, 'error_estimate': error_estimate })
-
-
-def edit(request, pk):
+def editTask(request, pk):
+    error_title = False
+    error_estimate = False
     error_state = False
 
     task = get_object_or_404(Task, pk=pk)
-    form = TaskEditForm(request.POST or None, instance=task)
-    if form.is_valid():
-        if (task.state != "ready") and (task.state != "in_progress"):
-            error_state=True
-        else:
-           form.save()
-           return redirect('/show/')
-    return render(request,'edit.html',{'form':form , 'error_state': error_state})
+    # В этом месте происходит обработка request.POST
+    # здесь же обнаржуиваются ошибки
+    # первое что приходит в голову - поступить как колхозник
+    estimate = request.POST.get('estimate')
+    if estimate is not None:
+        try:
+            datetime.strptime(estimate, "%Y-%m-%d")
+            form = TaskEditForm(request.POST, instance=task)
+            if form.is_valid():
+                if (task.state == "ready") or (task.state == "in_progress"):
+                    form.save()
+                    return redirect('/show/')
+                else:
+                    error_state = True
+            return render(request, 'edit.html',
+                          {'form': form, 'error_title': error_title, 'error_estimate': error_estimate,
+                           'error_state': error_state})
+        except:
+            error_estimate = True
+            form = TaskEditForm(instance=task)
+            return render(request, 'edit.html',
+                      {'form': form, 'error_title': error_title, 'error_estimate': error_estimate, 'error_state': error_state})
 
+    form = TaskEditForm(instance=task)
+    return render(request, 'edit.html',
+                  {'form': form, 'error_title': error_title, 'error_estimate': error_estimate,
+                   'error_state': error_state})
 
 
 def showTask(request):
     task_list = Task.objects.all()
-    return render_to_response('show_tasks.html',
+    return render(request, 'show_tasks.html',
                               {"task_list": task_list})

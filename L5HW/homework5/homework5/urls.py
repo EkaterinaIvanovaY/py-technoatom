@@ -17,9 +17,9 @@ from django.conf.urls import url, include
 from hw5 import views
 
 urlpatterns = [
-    url(r'^$', views.HomePageView.as_view()),
-    url(r'^task/$', views.createTask),
+    url(r'^$', views.HomePage),
+    url(r'^create/$', views.createTask),
     url(r'^show/', views.showTask),
-    url(r'^edit/(?P<pk>\d+)/$',views.edit,name='task_edit'),
+    url(r'^edit/(?P<pk>\d+)/$',views.editTask,name='task_edit'),
 ]
 
