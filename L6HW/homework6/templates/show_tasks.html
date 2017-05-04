@@ -10,30 +10,28 @@
 </head>
 <body>
     <h1> Here is list of Tasks </h1>
-    {% if task %}
+    {% if task_list %}
     <ul>
-       </li>
-    <form>
+        {% for task in task_list %}
+            <li>
                 {% if task.iscritical %}
                     <p style="color: red;">Title: {{ task.title }}<br />Estimate: {{ task.estimate }}<br />State: {{ task.state }}</p>
                 {% else %}
                     <p>Title: {{ task.title }}<br />Estimate: {{ task.estimate }}<br />State: {{ task.state }}</p>
                 {% endif %}
                 <a href="{% url "task_edit" task.id %}"><input type="button" value="Edit" /></a>
-    </form>
-        </li>
-        <form action="/task/" method = "get">
-            <input type="submit" value="New task">
-        </form>
+                </form>
+            </li>
+        {% endfor %}
     </ul>
     {% else %}
         <p>No tasks is presented here.<br /> Add new task</p>
-        <form action="/task/" method = "get">
-            <input type="submit" value="New task">
-        </form>
     {% endif %}
-<form action="/" method = "get">
-            <input align="bottom" type="submit"  value="Go back home">
-</form>
+     <table>
+	            <tr>
+	                <th><form action="/task/" method = "get"><input type="submit" value="New task"></form></th>
+                    <th> <form action="/" method = "get"><input align="bottom" type="submit"  value="Go back home"></form></th>
+                </tr>
+    </table>
 </body>
 </html>

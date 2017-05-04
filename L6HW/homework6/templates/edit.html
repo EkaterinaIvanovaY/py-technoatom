@@ -1,19 +1,25 @@
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'hw6/style.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'hw5/style.css' %}" />
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
 <!DOCTYPE html>
 <html lang="en">
-  <body>
-    <h1> Edit task </h1>
-    {% if error_state %}
-            <p style="color: red;">Please chose one of two states: in_progress or ready.</p>
-    {% endif %}
-    <form action="{{ action }}" method="POST">
-      {% csrf_token %}
-      <ul>
-        {{ form.as_ul }}
-      </ul>
-      <input type="submit" value="Save" />
-    </form>
- </body>
+    <head>
+        <meta charset="utf-8">
+        <title>Edit task</title>
+    </head>
+    <body>
+        <h1> Edit task </h1>
+        {% if error_estimate == True %}
+            <p style="color: darkred"> Incorrect estimate form. Try: YYYY-MM-DD</p>
+        {% elif error_state == True %}
+            <p style="color: darkred"> Incorrect state form. Try: ready or in_progress</p>
+        {% endif %}
+
+        <form action="{{ action }}" method="POST">
+            {% csrf_token %}
+            <p> {{ form.as_p }} </p>
+            <input type="submit" value="Save" />
+        </form>
+    </body>
 </html>
