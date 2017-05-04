@@ -1,0 +1,38 @@
+ { margin: 0; padding: 0; outline:0; }
+
+body {
+    font-size: 12px;
+    line-height: 22px;
+    font-family: "Lucida Sans", Arial, Helvetica, sans-serif;
+    color: #4a4a4a;
+    background: white url("https://www.firestock.ru/wp-content/uploads/2014/04/Fotolia_12168966_XXL-700x524.jpg") no-repeat right bottom;
+}
+input, textarea, select { font-size: 12px; font-family: Arial, Helvetica, sans-serif; }
+textarea { overflow: auto; }
+
+.cl { display: block; height: 0; font-size: 0; line-height: 0; text-indent: -4000px; clear: both; }
+.notext { font-size: 0; line-height: 0; text-indent: -4000px; }
+
+.left, .alignleft { float: left; display: inline; }
+.right, .alignright { float: right; display: inline; }
+
+.shell { width: 980px; margin: 0 auto; }
+
+.last { margin-right: 0 !important; }
+
+#header { position: relative; height: 106px;   }
+
+ button {
+display: inline-block;
+margin: 0 10px 0 0;
+padding: 15px 45px;
+font-size: 48px;
+font-family: "Bitter",serif;
+line-height: 1.8;
+appearance: none;
+box-shadow: none;
+border-radius: 0;
+}
+button:focus {
+outline: none
+}

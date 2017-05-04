@@ -1,0 +1,28 @@
+.table_col {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+  font-size: 14px;
+  background: none;
+  max-width: 70%;
+  width: 70%;
+  border-collapse: collapse;
+  text-align: left;
+}
+.table_col th:first-child, .table_col td:first-child {
+color: #F5F6F6;
+border-left: none;
+}
+.table_col th {
+  font-weight: normal;
+  color: #039;
+  padding: 10px 15px;
+}
+.table_col td {
+  color: #669;
+  border-top: 1px solid #e8edff;
+  padding: 10px 15px;
+}
+tr:hover td {
+    color: #000000;
+    background: #e8edff;
+
+}

@@ -1,0 +1,19 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'hw5/style.css' %}" />
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <h1> Edit task </h1>
+    {% if error_state %}
+            <p style="color: red;">Please chose one of two states: in_progress or ready.</p>
+    {% endif %}
+    <form action="{{ action }}" method="POST">
+      {% csrf_token %}
+      <ul>
+        {{ form.as_ul }}
+      </ul>
+      <input type="submit" value="Save" />
+    </form>
+ </body>
+</html>
