@@ -1,6 +1,7 @@
 import datetime
 from django.db import models
 from django.core.urlresolvers import reverse
+from django.forms.extras.widgets import SelectDateWidget
 
 
 class Roadmap(models.Model):
@@ -24,11 +25,8 @@ class Roadmap(models.Model):
 
 class Task(models.Model):
     title = models.CharField(max_length=100)
-    estimate = models.DateField(error_messages=
-                                {'required': 'Please submit correct estimate format XXXX-XX-XX'})
-    state = models.CharField(default='in_progress', max_length=100,
-                             error_messages=
-                             {'required': 'Please choose one of two states: in_progress or ready.'})
+    estimate = models.DateField( error_messages={'required': 'Please submit correct estimate format XXXX-XX-XX'})
+    state = models.CharField(default='in_progress', max_length=100,error_messages={'required': 'Please choose one of two states: in_progress or ready.'})
     roadmap = models.ForeignKey(Roadmap, on_delete=models.CASCADE)
     iscritical = property()
 
@@ -44,5 +42,6 @@ class Task(models.Model):
 
     def get_absolute_url(self):
         return reverse('task_edit', kwargs={'pk': self.pk})
+
 
 

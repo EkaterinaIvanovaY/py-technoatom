@@ -1,5 +1,5 @@
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'hw5/style.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'hw6/style.css' %}" />
 
 <html>
     <head>
@@ -9,9 +9,7 @@
 
     <body>
         <h1> Here is new task page. <br /> Type title and estimate </h1>
-        {% if error_title %}
-                <p style="color: red;">Please submit correct title.</p>
-        {% elif error_estimate %}
+        {% if error_estimate %}
             <p style="color: red;">Please submit correct estimate format YYYY-MM-DD</p>
         {% endif %}
         <form action="" method="POST">
@@ -19,8 +17,7 @@
             <p> {{ form.as_p }} </p>
             <input type="submit" value="Save"><br/>
         </form>
-        <form action="/" method = "get">
-            <input type="submit" value="Go back home">
+        <form action="/" method = "get"><input type="submit" value="Go back home">
         </form>
     </body>
 </html>

@@ -10,12 +10,8 @@ def HomePage(request):
 
 
 def createTask(request):
-    title = request.POST.get('title')
     estimate = request.POST.get('estimate')
     if estimate is not None:
-        error_title = False
-        if title is None:
-            error_title = True
         try:
             datetime.strptime(estimate, "%Y-%m-%d")
             form = TaskCreateForm(request.POST)

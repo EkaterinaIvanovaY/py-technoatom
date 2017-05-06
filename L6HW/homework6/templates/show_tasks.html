@@ -1,5 +1,6 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'hw6/style.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'hw6/table.css' %}" />
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 
 <!DOCTYPE html>
@@ -11,26 +12,42 @@
 <body>
     <h1> Here is list of Tasks </h1>
     {% if task_list %}
-    <ul>
-        {% for task in task_list %}
-            <li>
-                {% if task.iscritical %}
-                    <p style="color: red;">Title: {{ task.title }}<br />Estimate: {{ task.estimate }}<br />State: {{ task.state }}</p>
-                {% else %}
-                    <p>Title: {{ task.title }}<br />Estimate: {{ task.estimate }}<br />State: {{ task.state }}</p>
-                {% endif %}
-                <a href="{% url "task_edit" task.id %}"><input type="button" value="Edit" /></a>
-                </form>
-            </li>
-        {% endfor %}
+           <div class="table-responsive ">
+        	<table class="table_col">
+                <colgroup>
+                     <col style="background:#00BFFF">
+                </colgroup>
+                <tr>
+                   <th>Title</th>
+                   <th>State</th>
+                   <th>Estimate</th>
+                   <th>Edit</th>
+                   <th>Delete</th>
+                </tr>
+        		{% for task in task_list %}
+	            <tr>
+                    <td>
+                        {% if task.iscritical %}<p style="color: red;">{{ task.title }}
+                        {% else %}<p>{{ task.title }}
+                        {% endif %}
+                    </td>
+                    <td>{{ task.estimate }}</td>
+                    <td>{{ task.state }}</td>
+                    <td><a href="{% url "task_edit" task.id   %}"><input type="button" value="Edit" /></a></td>
+	                <td><a href="{% url "task_delete" task.id %}"><input type="button" value="Delete" /></a></td>
+                </tr>
+         		{% endfor %}
+        	</table>
+            </div>
     </ul>
     {% else %}
         <p>No tasks is presented here.<br /> Add new task</p>
     {% endif %}
-     <table>
+    <br />
+    <table>
 	            <tr>
-	                <th><form action="/task/" method = "get"><input type="submit" value="New task"></form></th>
-                    <th> <form action="/" method = "get"><input align="bottom" type="submit"  value="Go back home"></form></th>
+	                <th><a href="{% url "new_task" pk=roadmap.pk %}"><input type="button" value="New task" /></a></th>
+                    <th><a href="{% url "home" %}"><input type="button" value="Go back home" /></a></th>
                 </tr>
     </table>
 </body>

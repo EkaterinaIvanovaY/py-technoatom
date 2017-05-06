@@ -1,5 +1,5 @@
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'hw5/style.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'hw6/style.css' %}" />
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 
 <!DOCTYPE html>
@@ -10,10 +10,8 @@
     </head>
     <body>
         <h1> Edit task </h1>
-        {% if error_estimate == True %}
-            <p style="color: darkred"> Incorrect estimate form. Try: YYYY-MM-DD</p>
-        {% elif error_state == True %}
-            <p style="color: darkred"> Incorrect state form. Try: ready or in_progress</p>
+        {% if error_state == True %}
+            <p style="color: red"> Incorrect state form. Try: ready or in_progress</p>
         {% endif %}
 
         <form action="{{ action }}" method="POST">
