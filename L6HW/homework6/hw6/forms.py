@@ -9,7 +9,7 @@ class TaskEditForm(forms.ModelForm):
         model = Task
         fields = ['title', 'estimate', 'state']
         widgets = {
-            'estimate': SelectDateWidget(years=range(2000, 2050)),
+            'estimate': SelectDateWidget(years=range(1960, 2100)),
         }
 
 class TaskCreateForm(forms.ModelForm):
@@ -17,7 +17,7 @@ class TaskCreateForm(forms.ModelForm):
         model = Task
         fields = ['title', 'estimate']
         widgets = {
-            'estimate': SelectDateWidget(years=range(2000, 2050)),
+            'estimate': SelectDateWidget(years=range(1960, 2100)),
         }
 class RoadmapForm(forms.ModelForm):
     class Meta:
