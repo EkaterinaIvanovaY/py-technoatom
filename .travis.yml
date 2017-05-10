@@ -1,15 +1,11 @@
 language: python
 python:
-    - 3.5
-    - 3.6
-
-install:
-    - pip install -r requirements/base.txt
-
-script:
-    - pylint todo
-
-sudo: false
-
-matrix:
-fast_finish: true
+  - "3.5"
+  - "3.6"
+  - "nightly" 
+# command to install dependencies
+install: "pip install -r req.txt"
+# command to run tests
+script: "coverage run L3HW/Roadmap.ipynb"
+after_success:
+  - coveralls
