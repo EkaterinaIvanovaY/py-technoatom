@@ -1,4 +1,11 @@
 
-coverage==4.3.4
-coveralls==1.1
-docopt==0.6.2
+sphinx-rtd-theme==0.2.4
+Sphinx==1.5.3
+travis-sphinx==1.4.3
+flask==0.12
+jupyter
+nbconvert
+pandoc
+nbsphinx
+IPython
+ipykernel
