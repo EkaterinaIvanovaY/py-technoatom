@@ -3,6 +3,7 @@ sphinx-rtd-theme==0.2.4
 Sphinx==1.5.3
 travis-sphinx==1.4.3
 flask==0.12
+pyyaml==3.12
 jupyter
 nbconvert
 pandoc
