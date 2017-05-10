@@ -1,0 +1,29 @@
+language: python
+
+# command to install dependencies
+install: 
+  - sudo apt-get update
+  # Python environment:
+  - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+  - bash miniconda.sh -b -p $HOME/miniconda
+  - export PATH="$HOME/miniconda/bin:$PATH"
+  - hash -r
+  - conda config --set always_yes yes --set changeps1 no
+  - conda update -q conda
+  - conda info -a
+  - conda create -q -n test-environment python=3 numpy scipy matplotlib
+  - source activate test-environment
+  # Now get set up to run jupyter notebooks:
+  - sudo apt-get install texlive-latex-recommended
+  - sudo apt-get install texlive-latex-extra
+  - sudo apt-get install texlive-fonts-recommended
+  - sudo apt-get install chktex
+  - sudo apt-get install dvipng
+  - pip install --upgrade jupyter
+  - pip install nbconvert
+  
+  - pip install -r req.txt
+  
+# command to run tests
+script: 
+- jupyter nbconvert --ExecutePreprocessor.kernel_name=python --ExecutePreprocessor.timeout=600 --to notebook --execute L4HW/wsgi.ipynb
